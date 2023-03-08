@@ -10,8 +10,8 @@ public class Main {
         double[][] valueArray = matrixCreator(size);
         double[] freeArray = freeCreator(size);
         martixAndFreeSout(valueArray, freeArray);
-        valueArray = elimination(valueArray, freeArray);
-        martixAndFreeSout(valueArray, freeArray);
+        double[][] wholeArray = elimination(valueArray, freeArray);
+        wholeSout(wholeArray);
     }
 
     double[][] elimination(double[][] valueArray, double[] freeArray){
@@ -24,9 +24,18 @@ public class Main {
                 }
             }
         }
-        return valueArray;
+        double[][] tempArray = new double[valueArray.length][valueArray[0].length +1];
+        for(int i = 0 ; i< valueArray.length + 1; i++){
+            for(int j = 0; j< valueArray[0].length; j++){
+                if(j == valueArray.length){
+                    tempArray[i][j] = freeArray[i];
+                }else{
+                    tempArray[i][j] = valueArray[i][j];
+                }
+            }
+        }
+        return tempArray;
     }
-
     double[][] matrixCreator(int size){
         double[][] valueArray = new double[size][size];
         Random rand = new Random();
@@ -58,4 +67,19 @@ public class Main {
         }
         System.out.println();
     }
+    void wholeSout(double[][] wholeArray){
+        for(int i=0; i<wholeArray.length; i++){
+            for(int j=0; j<wholeArray[0].length; j++){
+                double valueValue = Math.round(wholeArray[i][j]*100.0)/100.0;
+                if(i == wholeArray.length) System.out.print("|| ");
+                if(wholeArray[i][j]<0) System.out.print("[" + valueValue + "] ");
+                else System.out.print(" [" + valueValue + "] ");
+
+            }
+            System.out.println();
+        }
+        System.out.println();
+    }
 }
+
+
